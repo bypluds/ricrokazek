@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Казино Рикролии</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #282828;
+            color: white;
+            text-align: center;
+        }
+        h1 {
+            margin-top: 20px;
+        }
+        #slot-machine {
+            margin: 20px auto;
+            display: flex;
+            justify-content: center;
+            font-size: 50px;
+        }
+        .slot {
+            width: 100px;
+            height: 100px;
+            border: 2px solid #ecf0f1;
+            margin: 0 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #34495e;
+        }
+        #controls {
+            margin-top: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 20px;
+            cursor: pointer;
+            background-color: #e74c3c;
+            border: none;
+            color: white;
+        }
+        button:hover {
+            background-color: #c0392b;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Правительство Рикролии выделило вам 400 денежных элементов на додеп</h1>
+<h2>Баланс: <span id="balance">400</span> 🪙</h2>
+
+<div id="slot-machine">
+    <div class="slot" id="slot1">🍌</div>
+    <div class="slot" id="slot2">🍏</div>
+    <div class="slot" id="slot3">🍊</div>
+</div>
+
+<div id="controls">
+    <input type="number" id="bet" placeholder="Ставка" min="1" max="100">
+    <button onclick="spin()">Крутить!</button>
+</div>
+
+<script>
+    let balance = 400;
+
+    function spin() {
+        const betInput = document.getElementById('bet');
+        const bet = parseInt(betInput.value);
+        
+        if (isNaN(bet) || bet <= 0 || bet > balance) {
+            alert("Нет денег!");
+            return;
+        }
+
+        balance -= bet;
+
+        const emojis = ['🍌', '🍏', '🍊', '7️⃣'];
+        const slot1 = emojis[Math.floor(Math.random() * emojis.length)];
+        const slot2 = emojis[Math.floor(Math.random() * emojis.length)];
+        const slot3 = emojis[Math.floor(Math.random() * emojis.length)];
+
+        document.getElementById('slot1').innerText = slot1;
+        document.getElementById('slot2').innerText = slot2;
+        document.getElementById('slot3').innerText = slot3;
+
+        if (slot1 === slot2 && slot2 === slot3) {
+            alert("Выигрышъ");
+            balance += bet * 2; 
+        }
+
+        document.getElementById('balance').innerText = balance;
+        betInput.value = ''; 
+    }
+</script>
+
+</body>
+</html>
